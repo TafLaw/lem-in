@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   valid.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmuzeren <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/03 09:51:10 by tmuzeren          #+#    #+#             */
+/*   Updated: 2019/09/03 09:51:12 by tmuzeren         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "./libft/libft.h"
+
+#include "lem_in.h"
 
 int     check_input(char **str, int ac)
 {
@@ -34,6 +46,8 @@ int     check_input(char **str, int ac)
 
 int     main(int ac, char **av)
 {
+    t_lst   *path;
+    int j = 0;
     int i = 0;
     char *in;
 
@@ -46,23 +60,31 @@ int     main(int ac, char **av)
                 if (!ft_isdigit(in[i]))
                 {
                     ft_putendl("Error");
+                    free(in);
                     return (0);
                 }
                 else
                     i++;
-                
             }
         }
         
-        while (get_next_line(0, &in) == 1)
+        while (get_next_line(0, &in) == 1 && j++ < 5)
         {
+            /* if (in[0] == '\n')
+                break; */
             if (!check_input(&in, word_c(in, ' ')))
+            {
+                free(in);
                 return (0);
+            }
         }
+        printf("New\n");
+        while (get_next_line(0, &in) == 1)
+            links(in, &path);
+        trav(path);
+        free(path);
+    free(in);
     }
-    else
-    {
-        ft_putendl("only one");
-    }
+    sleep(40);
     return (0);
 }
