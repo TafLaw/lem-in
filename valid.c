@@ -67,24 +67,25 @@ int     main(int ac, char **av)
                     i++;
             }
         }
-        
-        while (get_next_line(0, &in) == 1 && j++ < 5)
+        ft_strclr(in);
+        while ((get_next_line(0, &in) == 1))
         {
-            /* if (in[0] == '\n')
-                break; */
-            if (!check_input(&in, word_c(in, ' ')))
+            if (word_c(in, ' ') == 3 || (in[0] == '#'))
             {
-                free(in);
-                return (0);
+                if (!check_input(&in, word_c(in, ' ')))
+                {
+                    free(in);
+                    return (0);
+                }
+            }
+            else
+            {
+                    links(in, &path);
             }
         }
-        printf("New\n");
-        while (get_next_line(0, &in) == 1)
-            links(in, &path);
         trav(path);
         free(path);
     free(in);
     }
-    sleep(40);
     return (0);
 }

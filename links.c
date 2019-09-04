@@ -23,14 +23,13 @@ void    create_path(t_lst **p, char *da)
     temp->left = NULL;
     if (*p == NULL)
         *p = temp;
-    else
+    else if (*p != NULL)
     {
         t = *p;
         while (t->right != NULL)
             t = t->right;
         t->right = temp;
-        temp->left = t;
-        *p = t;
+        temp->left = t;   
     }
 }
 
@@ -55,25 +54,54 @@ size_t s_len(char *str)
     return (j);
 }
 
+void    single_paths(t_in **p, char *s)
+{
+    t_in    *tmp;
+    t_in    *t;
+
+    tmp = (t_in *)malloc(sizeof(t_in));
+    tmp->data = ft_strdup(s);
+    tmp->next = NULL;
+    if (*p == NULL)
+        *p = tmp;
+    else
+    {
+        t = *p;
+        while (t->next != NULL)
+            t = t->next;
+        t->next = tmp;
+    }    
+}
+
 void    links(char *str, t_lst **path)
 {
-    t_list *paths;
-    int i = -1;
-    int j = 0;
-
-    char *pre = ft_strnew(p_len(str));
-    char *sur = ft_strnew(s_len(str));
-    while (str[++i] != '-')
-        pre[i] = str[i];
-    while (str[++i])
-        sur[j++] = str[i];
-    if (ft_strcmp(pre, sur))
+    char **pre;
+    int  i;
+    t_in *res;
+    
+    
+    i = 0;
+    res = NULL;
+    pre = ft_strsplit(str, '-');
+    //ft_putstr("Error");
+    single_paths(&res, pre[i]);
+    trav2(res);
+    if (duplicate(res, pre[i]) == 0)
     {
-        create_path(path, pre);
-        create_path(path, sur); 
+        
+        if (*path == NULL)
+        {
+            create_path(path, pre[i]);
+            create_path(path, pre[i+1]);
+            
+        }
+        else 
+                create_path(path, pre[i+1]);
+      trav(*path);
     }
-    //paths(single list string paths)
-    while ()
+    if (duplicate(res, pre[i]) == 1)
+    {
+        return ;
+    }
     free(pre);
-    free(sur);
 }

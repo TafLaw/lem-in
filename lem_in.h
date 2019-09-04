@@ -24,6 +24,15 @@ typedef struct      s_lst
     struct s_lst   *left;
 }               t_lst;
 
+typedef struct      s_lem 
+{
+    char           *data;
+    struct s_lem   *next;
+}                   t_in;
+
+int             duplicate(t_in *stack, char *s);
+void            single_paths(t_in **p, char *s);
 void            links(char  *str, t_lst **path);
 void	        trav(t_lst *top);
+void	        trav2(t_in *top);
 #endif
