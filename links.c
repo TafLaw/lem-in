@@ -56,37 +56,34 @@ size_t s_len(char *str)
 
 void    single_paths(t_in **p, char *s)
 {
-    t_in    *tmp;
-    t_in    *t;
+    t_in *temp;
+    t_in *t;
 
-    tmp = (t_in *)malloc(sizeof(t_in));
-    tmp->data = ft_strdup(s);
-    tmp->next = NULL;
+    temp = (t_in *)malloc(sizeof(t_in));
+    temp->data = ft_strdup(s);
+    temp->next = NULL;;
     if (*p == NULL)
-        *p = tmp;
-    else
+        *p = temp;
+    else if (*p != NULL)
     {
         t = *p;
         while (t->next != NULL)
             t = t->next;
-        t->next = tmp;
-    }    
+        t->next = temp;   
+    }
 }
 
-void    links(char *str, t_lst **path)
+void    links(char *str, t_lst **path, t_in **res)
 {
     char **pre;
     int  i;
-    t_in *res;
-    
     
     i = 0;
-    res = NULL;
     pre = ft_strsplit(str, '-');
     //ft_putstr("Error");
-    single_paths(&res, pre[i]);
-    trav2(res);
-    if (duplicate(res, pre[i]) == 0)
+    single_paths(res, pre[i]);
+    trav2(*res);
+    if (duplicate(*res, pre[i]) == 0)
     {
         
         if (*path == NULL)
@@ -99,7 +96,7 @@ void    links(char *str, t_lst **path)
                 create_path(path, pre[i+1]);
       trav(*path);
     }
-    if (duplicate(res, pre[i]) == 1)
+    if (duplicate(*res, pre[i]) == 1)
     {
         return ;
     }

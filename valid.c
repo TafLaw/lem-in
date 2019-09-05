@@ -47,7 +47,7 @@ int     check_input(char **str, int ac)
 int     main(int ac, char **av)
 {
     t_lst   *path;
-    int j = 0;
+    t_in *res;
     int i = 0;
     char *in;
 
@@ -80,7 +80,7 @@ int     main(int ac, char **av)
             }
             else
             {
-                    links(in, &path);
+                    links(in, &path, &res);
             }
         }
         trav(path);
