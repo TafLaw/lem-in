@@ -13,6 +13,95 @@
 
 #include "lem_in.h"
 
+int         check_rooms(t_in *room, char *s)
+{
+    char **r;
+    int     val;
+
+    val = 0;
+    r = ft_strsplit(s, '-');
+    while (room != NULL)
+    {
+        if (!ft_strcmp(room->data, r[0]) || !ft_strcmp(room->data, r[1]))
+            val++;
+        if (val == 2)
+            return (1);
+        room = room->next;
+    }
+    return (0);
+}
+
+void    valid_rooms(t_in **p, char *s)
+{
+    t_in *temp;
+    t_in *t;
+    char **in;
+
+    in = ft_strsplit(s, ' ');
+    temp = (t_in *)malloc(sizeof(t_in));
+    temp->data = ft_strdup(in[0]);
+    temp->next = NULL;;
+    if (*p == NULL)
+        *p = temp;
+    else if (*p != NULL)
+    {
+        t = *p;
+        while (t->next != NULL)
+            t = t->next;
+        t->next = temp;   
+    }
+}
+
+int     vaughan(t_in **store)
+{
+    char *start;
+    char *end;
+    t_in *tmp;
+
+    tmp = *store;
+        while (tmp != NULL)
+        {
+            if (ft_strcmp("start", ft_strstr(tmp->data, "start")) == 0)
+            {
+                tmp = tmp->next;
+                if (word_c(tmp->data, ' ') == 3)
+                {
+                    start = ft_strdup(tmp->data);
+                    break ;
+                }
+                else 
+                {
+                    ft_putendl("Invalid Start");
+                    return (0);
+                }
+            }
+            else
+                tmp = tmp->next;
+        }
+        tmp = *store;
+        while (tmp != NULL)
+        {
+            if (ft_strcmp("end", ft_strstr(tmp->data, "end")) == 0)
+            {
+                if (tmp->next)
+                tmp = tmp->next;
+                if (word_c(tmp->data, ' ') == 3)
+                {
+                    end = ft_strdup(tmp->data);
+                    break ;
+                }
+                else
+                {
+                    ft_putendl("Invalid end");
+                    return (0);
+                }
+            }
+            else
+                tmp = tmp->next;
+        }
+    return (1);
+}
+
 int     check_input(char **str, int ac)
 {
     size_t i;
@@ -47,10 +136,13 @@ int     check_input(char **str, int ac)
 int     main(int ac, char **av)
 {
     t_lst   *path;
-    t_in *res;
-    int i = 0;
-    char *in;
-
+    t_in    *store;
+    t_in    *res;
+    t_in    *rooms;
+    int     i = 0;
+    char    *in;
+    
+    store = NULL;
     if (ac == 1 && av[1] == NULL)
     {
         if (get_next_line(0, &in) == 1)
@@ -77,10 +169,21 @@ int     main(int ac, char **av)
                     free(in);
                     return (0);
                 }
+                valid_rooms(&rooms, in);
+                single_paths(&store, in);
             }
+            else if (vaughan(&store) == 0)
+                return (0);
             else
             {
-                    links(in, &path, &res);
+                if (check_rooms(rooms, in) == 1)
+                    links(in, &path, &res);//, &res2);
+                else
+                {
+                    ft_putendl("Invalid room");
+                    break;
+                }
+                
             }
         }
         trav(path);

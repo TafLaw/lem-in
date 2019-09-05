@@ -31,8 +31,10 @@ typedef struct      s_lem
 }                   t_in;
 
 int             duplicate(t_in *stack, char *s);
+int             duplicate2(t_lst *stack, char *s);
 void            single_paths(t_in **p, char *s);
-void            links(char  *str, t_lst **path);
+void            links(char  *str, t_lst **path, t_in **res);//, t_in **res2);
 void	        trav(t_lst *top);
 void	        trav2(t_in *top);
+int             ft_lstlen(t_in *r);
 #endif

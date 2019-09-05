@@ -82,23 +82,32 @@ void    links(char *str, t_lst **path, t_in **res)
     pre = ft_strsplit(str, '-');
     //ft_putstr("Error");
     single_paths(res, pre[i]);
+     //single_paths(res2, pre[i + 1]);
     trav2(*res);
+    printf("%d\n", duplicate(*res, pre[i]));
     if (duplicate(*res, pre[i]) == 0)
     {
-        
+        printf("no dup\n");
         if (*path == NULL)
         {
             create_path(path, pre[i]);
             create_path(path, pre[i+1]);
             
         }
-        else 
+        else   if (duplicate2(*path, pre[i + 1]) == 0 || duplicate2(*path, pre[i]) == 0)
                 create_path(path, pre[i+1]);
       trav(*path);
     }
     if (duplicate(*res, pre[i]) == 1)
     {
+        printf("dup\n");
+      trav(*path);
         return ;
     }
     free(pre);
 }
+
+/* void     search_path(char *str)
+{
+
+} */
