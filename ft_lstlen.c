@@ -1,8 +1,8 @@
 #include "lem_in.h"
 
-int		ft_lstlen(t_in *r)
+int		ft_lstlen(t_lst *r)
 {
-	t_in		*temp;
+	t_lst		*temp;
 	int			len;
 
 	temp = r;
@@ -10,7 +10,7 @@ int		ft_lstlen(t_in *r)
 	while (temp != NULL)
 	{
 		len++;
-		temp = temp->next;
+		temp = temp->right;
 	}
 	return (len);
 }

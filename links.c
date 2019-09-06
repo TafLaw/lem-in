@@ -12,6 +12,26 @@
 
 #include "lem_in.h"
 
+void    create_links(t_lst **p, char *da)
+{
+    t_lst *temp;
+    t_lst *t;
+
+    temp = (t_lst *)malloc(sizeof(t_lst));
+    temp->data = ft_strdup(da);
+    temp->right = NULL;
+    temp->left = NULL;
+    if (*p == NULL)
+        *p = temp;
+    else if (*p != NULL)
+    {
+        t = *p;
+        while (t->right != NULL)
+            t = t->right;
+        t->right = temp;
+        temp->left = t;   
+    }
+}
 void    create_path(t_lst **p, char *da)
 {
     t_lst *temp;
@@ -73,16 +93,14 @@ void    single_paths(t_in **p, char *s)
     }
 }
 
-void    links(char *str, t_lst **path, t_in **res)
+/* void    links(char *str, t_lst **path, t_in **res)
 {
     char **pre;
     int  i;
     
     i = 0;
     pre = ft_strsplit(str, '-');
-    //ft_putstr("Error");
     single_paths(res, pre[i]);
-     //single_paths(res2, pre[i + 1]);
     trav2(*res);
     printf("%d\n", duplicate(*res, pre[i]));
     if (duplicate(*res, pre[i]) == 0)
@@ -105,9 +123,60 @@ void    links(char *str, t_lst **path, t_in **res)
         return ;
     }
     free(pre);
-}
-
-/* void     search_path(char *str)
-{
-
 } */
+
+t_lst    *search_path(t_lst  *res, char *s, char *e)
+{
+    char **st;
+    char **en;
+    char **cut;
+    t_lst *tmp;
+    t_lst *path;
+
+   path = NULL;
+    st = ft_strsplit(s, ' ');
+    en = ft_strsplit(e, ' ');
+        if (path == NULL)
+            create_path(&path, st[0]);
+        tmp = res;
+        int i = 0;
+        //cut = NULL;
+        while (i++<1)//ft_strcmp(en[0], st[0]) != 0)
+        {
+   trav(path);
+        //ft_putnbr(ft_strcmp(e, (*path)->data));
+            while (tmp)
+            {
+                ft_putendl(ft_strsub(tmp->data, 0, ft_strlen(st[0])));
+                if (ft_strcmp(st[0], ft_strsub(tmp->data, 0, ft_strlen(st[0]))) == 0)
+                {
+    //ft_putendl(tmp->data);
+                    cut = ft_strsplit(tmp->data, '-');
+                    create_path(&path, cut[1]);
+                    ft_putendl(cut[1]);
+                    st[0] = cut[1];
+                }
+                else if ()
+                {
+
+                }
+                
+                tmp = tmp->right;
+            }
+            if (tmp == NULL)
+            {
+                while (tmp)
+                {
+                    if (ft_strcmp(st[0], ft_strsub(tmp->data, 0, ft_strlen(st[0]))) == 0)
+                    {
+                        cut = ft_strsplit(tmp->data, '-');
+                        create_path(&path, cut[1]);
+                        st[0] = cut[1];
+                    }
+                tmp = tmp->left;
+                }
+            }
+            //printf("Len == %d", ft_lstlen(path));
+        }
+    return (path);
+}

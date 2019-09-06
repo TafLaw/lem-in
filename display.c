@@ -9,6 +9,7 @@ void	trav(t_lst *top)
 	else
 	{
 		temp = top;
+		ft_putstr("NULL <- ");
 		while (temp != NULL)
 		{
 			ft_putstr(temp->data);
@@ -28,6 +29,7 @@ void	trav2(t_in *top)
 	else
 	{
 		temp = top;
+		
 		while (temp != NULL)
 		{
 			ft_putstr(temp->data);

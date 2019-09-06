@@ -52,10 +52,8 @@ void    valid_rooms(t_in **p, char *s)
     }
 }
 
-int     vaughan(t_in **store)
+int     def_start_end(t_in **store, char **start, char **end)
 {
-    char *start;
-    char *end;
     t_in *tmp;
 
     tmp = *store;
@@ -66,7 +64,7 @@ int     vaughan(t_in **store)
                 tmp = tmp->next;
                 if (word_c(tmp->data, ' ') == 3)
                 {
-                    start = ft_strdup(tmp->data);
+                    *start = ft_strdup(tmp->data);
                     break ;
                 }
                 else 
@@ -87,7 +85,7 @@ int     vaughan(t_in **store)
                 tmp = tmp->next;
                 if (word_c(tmp->data, ' ') == 3)
                 {
-                    end = ft_strdup(tmp->data);
+                    *end = ft_strdup(tmp->data);
                     break ;
                 }
                 else
@@ -137,12 +135,15 @@ int     main(int ac, char **av)
 {
     t_lst   *path;
     t_in    *store;
-    t_in    *res;
+    t_lst    *res;
     t_in    *rooms;
     int     i = 0;
     char    *in;
+    char *start;
+    char *end;
     
     store = NULL;
+    path = NULL;
     if (ac == 1 && av[1] == NULL)
     {
         if (get_next_line(0, &in) == 1)
@@ -172,21 +173,23 @@ int     main(int ac, char **av)
                 valid_rooms(&rooms, in);
                 single_paths(&store, in);
             }
-            else if (vaughan(&store) == 0)
+            else if (def_start_end(&store, &start, &end) == 0)
                 return (0);
             else
             {
                 if (check_rooms(rooms, in) == 1)
-                    links(in, &path, &res);//, &res2);
+                   //single_paths(&res, in);
+                   create_links(&res, in);
                 else
                 {
                     ft_putendl("Invalid room");
                     break;
                 }
-                
             }
         }
+        path = search_path(res, start, end);
         trav(path);
+        printf("\033[0;35m\nStart : %s\nEnd : %s\n\n\033[0m", start, end);
         free(path);
     free(in);
     }
