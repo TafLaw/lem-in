@@ -30,6 +30,7 @@ typedef struct      s_lem
     struct s_lem   *next;
 }                   t_in;
 
+char		    *pos(t_lst *a, int loc);
 t_lst           *search_path(t_lst  *res, char *s, char *e);
 void            create_links(t_lst **p, char *da);
 int             duplicate(t_in *stack, char *s);
