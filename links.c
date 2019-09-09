@@ -132,7 +132,6 @@ t_lst    *search_path(t_lst  *res, char *s, char *e)
     char **cut;
     t_lst *tmp;
     t_lst *path;
-    char **posi1;
 
    path = NULL;
     st = ft_strsplit(s, ' ');
@@ -140,39 +139,29 @@ t_lst    *search_path(t_lst  *res, char *s, char *e)
         if (path == NULL)
             create_path(&path, st[0]);
         tmp = res;
-        //int i = 0;
-        //cut = NULL;
-        while (1)//ft_strcmp(en[0], st[0]) != 0)
+        while (1)
         {
-        //ft_putnbr(ft_strcmp(e, (*path)->data));
+        
             while (tmp)
             {
-                printf("\033[0;34mST == %s\n\033[0m", st[0]);
-                //ft_putendl(st[0]);
-                printf("\033[0;33mSTRSUB == %s\n\033[0m", ft_strsub(tmp->data, 0, ft_strlen(st[0])));
-                //ft_putendl(ft_strsub(tmp->data, 0, ft_strlen(st[0])));
-                if (ft_strcmp(st[0], ft_strsub(tmp->data, 0, ft_strlen(st[0]))) == 0) //problems with the length
+                if (ft_strcmp(st[0],ft_strreturn(tmp->data, st[0])) == 0)
                 {
-    //ft_putendl(tmp->data);
                     cut = ft_strsplit(tmp->data, '-');
-                    create_path(&path, cut[1]);
-                    //ft_putendl(cut[1]);
-                    st[0] = cut[1];
+                    if (!ft_strcmp(cut[1], ft_strreturn(tmp->data, st[0])))
+                    {
+                         cut = ft_strsplit(tmp->data, '-');
+                        create_path(&path, cut[0]);
+                        st[0] = cut[0];
+                    }
+                    else
+                    {
+                       create_path(&path, cut[1]);
+                        st[0] = cut[1];
+                    }
+                    trav(path);
+                    if (ft_strcmp(pos(path, ft_lstlen(path)), en[0]) ==0)
+                        return (path);
                 }
-                else if (ft_strcmp(st[0], ft_strsub(tmp->data, 0, ft_strlen(st[0]))) != 0)
-                {
-    //ft_putendl(tmp->data);
-                   if (ft_strcmp(st[0], ft_strsub(tmp->data, ft_strlen(st[0]) + 1, ft_strlen(tmp->data))) == 0)
-                   {
-                    cut = ft_strsplit(tmp->data, '-');
-                    create_path(&path, cut[0]);
-                    //ft_putendl(cut[0]);
-                    st[0] = cut[0];
-                   }
-                }
-                posi1 = ft_strsplit(pos(path, ft_lstlen(path)), '-');
-            if (!ft_strcmp(posi1[1], en[0]) || !ft_strcmp(posi1[0], en[0]))
-                break;
                 tmp = tmp->right;
             }
             if (tmp == NULL)
@@ -182,22 +171,22 @@ t_lst    *search_path(t_lst  *res, char *s, char *e)
                     if (ft_strcmp(st[0], ft_strsub(tmp->data, 0, ft_strlen(st[0]))) == 0)
                     {
                         cut = ft_strsplit(tmp->data, '-');
-                        create_path(&path, cut[1]);
-                        st[0] = cut[1];
-                    }
-                    else if (ft_strcmp(st[0], ft_strsub(tmp->data, 0, ft_strlen(st[0]))) != 0)
-                    {
-    //ft_putendl(tmp->data);
-                        if (ft_strcmp(st[0], ft_strsub(tmp->data, ft_strlen(st[0]) + 1, ft_strlen(tmp->data))) == 0)
+                        if (!ft_strcmp(cut[1], ft_strreturn(tmp->data, st[0])))
                         {
-                            cut = ft_strsplit(tmp->data, '-');
+                             cut = ft_strsplit(tmp->data, '-');
                             create_path(&path, cut[0]);
-                            ft_putendl(cut[0]);
                             st[0] = cut[0];
                         }
+                        else
+                        { 
+                            create_path(&path, cut[1]);
+                            st[0] = cut[1];
+                        }
+                        if (!ft_strcmp(pos(path, ft_lstlen(path)), en[0]))
+                            return(path);
                     }
-                    posi1 = ft_strsplit(pos(path, ft_lstlen(path)), '-');
-            if (!ft_strcmp(posi1[1], en[0]) || !ft_strcmp(posi1[0], en[0]))
+                    
+            if (!ft_strcmp(pos(path, ft_lstlen(path)), en[0]))
                 break;      
                 tmp = tmp->left;
                 }
@@ -206,8 +195,6 @@ t_lst    *search_path(t_lst  *res, char *s, char *e)
             posi = ft_strsplit(pos(res, ft_lstlen(res)), '-');
             if (!ft_strcmp(posi[1], en[0]) || !ft_strcmp(posi[0], en[0]))
                 break;
-            //trav(res);
-            //printf("Len == %d", ft_lstlen(path));
         }
     return (path);
 }

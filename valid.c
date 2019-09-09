@@ -187,9 +187,9 @@ int     main(int ac, char **av)
                 }
             }
         }
+        printf("\033[0;35m\nStart : %s\nEnd : %s\n\n\033[0m", start, end);
         path = search_path(res, start, end);
         trav(path);
-        printf("\033[0;35m\nStart : %s\nEnd : %s\n\n\033[0m", start, end);
         free(path);
     free(in);
     }
