@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
+t_lst *las = NULL;
 
 void    create_links(t_lst **p, char *da)
 {
@@ -29,6 +30,7 @@ void    create_links(t_lst **p, char *da)
         while (t->right != NULL)
             t = t->right;
         t->right = temp;
+        las = temp;
         temp->left = t;   
     }
 }
@@ -124,7 +126,10 @@ void    single_paths(t_in **p, char *s)
     }
     free(pre);
 } */
-
+int      check_links(t_lst *res, char *s)
+{
+    while ()
+}
 t_lst    *search_path(t_lst  *res, char *s, char *e)
 {
     char **st;
@@ -158,18 +163,21 @@ t_lst    *search_path(t_lst  *res, char *s, char *e)
                        create_path(&path, cut[1]);
                         st[0] = cut[1];
                     }
-                    trav(path);
                     if (ft_strcmp(pos(path, ft_lstlen(path)), en[0]) ==0)
                         return (path);
                 }
                 tmp = tmp->right;
             }
+            return (path);
             if (tmp == NULL)
             {
+                tmp = las;
                 while (tmp)
                 {
+                    printf("temp->left = %s\n", tmp->data);
                     if (ft_strcmp(st[0], ft_strsub(tmp->data, 0, ft_strlen(st[0]))) == 0)
                     {
+                printf("HERE\n");
                         cut = ft_strsplit(tmp->data, '-');
                         if (!ft_strcmp(cut[1], ft_strreturn(tmp->data, st[0])))
                         {
@@ -195,6 +203,8 @@ t_lst    *search_path(t_lst  *res, char *s, char *e)
             posi = ft_strsplit(pos(res, ft_lstlen(res)), '-');
             if (!ft_strcmp(posi[1], en[0]) || !ft_strcmp(posi[0], en[0]))
                 break;
+            break;
         }
+        trav(path);
     return (path);
 }
