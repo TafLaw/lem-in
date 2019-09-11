@@ -30,7 +30,6 @@ typedef struct      s_lem
     struct s_lem   *next;
 }                   t_in;
 
-int			isadded(t_lst *path, char *c);
 char            *ft_strreturn(const char *hay, const char *needle);
 char		    *pos(t_lst *a, int loc);
 t_lst           *search_path(t_lst  *res, char *s, char *e);

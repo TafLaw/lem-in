@@ -6,13 +6,13 @@
 /*   By: tmuzeren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 09:51:10 by tmuzeren          #+#    #+#             */
-/*   Updated: 2019/09/03 09:51:12 by tmuzeren         ###   ########.fr       */
+/*   Updated: 2019/09/11 17:38:07 by tmuzeren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "lem_in.h"
-
+//for pushing
 int         check_rooms(t_in *room, char *s)
 {
     char **r;

@@ -1,4 +1,5 @@
 #include "lem_in.h"
+//for check
 //(create tmp variable to store and end, check input when passed);
 int					duplicate(t_in *stack, char *s)
 {
