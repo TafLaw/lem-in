@@ -126,10 +126,7 @@ void    single_paths(t_in **p, char *s)
     }
     free(pre);
 } */
-int      check_links(t_lst *res, char *s)
-{
-    while ()
-}
+
 t_lst    *search_path(t_lst  *res, char *s, char *e)
 {
     char **st;
@@ -137,9 +134,12 @@ t_lst    *search_path(t_lst  *res, char *s, char *e)
     char **cut;
     t_lst *tmp;
     t_lst *path;
+    char **firstsignal;
+    int i = 0;
 
    path = NULL;
     st = ft_strsplit(s, ' ');
+    firstsignal = ft_strsplit(s, ' ');
     en = ft_strsplit(e, ' ');
         if (path == NULL)
             create_path(&path, st[0]);
@@ -149,26 +149,33 @@ t_lst    *search_path(t_lst  *res, char *s, char *e)
         
             while (tmp)
             {
-                if (ft_strcmp(st[0],ft_strreturn(tmp->data, st[0])) == 0)
+                if (ft_strcmp(st[0],ft_strreturn(tmp->data, st[0])) == 0  /* || st[0] == firstsignal[0] */)
                 {
                     cut = ft_strsplit(tmp->data, '-');
-                    if (!ft_strcmp(cut[1], ft_strreturn(tmp->data, st[0])))
+                if (isadded(path, cut[1]) == 1 && isadded(path, cut[0]) == 1)
+                {
+                    ft_putstr("heeeeeellllllooooo");
+                    //return (path);
+                    break;
+                }
+                    if (!ft_strcmp(cut[1], ft_strreturn(tmp->data, st[0])) /* && isadded(path, st[0]) == 0 */)
                     {
                          cut = ft_strsplit(tmp->data, '-');
                         create_path(&path, cut[0]);
                         st[0] = cut[0];
                     }
-                    else
+                    else /* if (isadded(path, st[0]) == 0) */
                     {
                        create_path(&path, cut[1]);
                         st[0] = cut[1];
                     }
-                    if (ft_strcmp(pos(path, ft_lstlen(path)), en[0]) ==0)
+                    printf("\n\n%s\n\n", st[0]);
+                    if (ft_strcmp(pos(path, ft_lstlen(path)), en[0]) == 0)
                         return (path);
                 }
                 tmp = tmp->right;
             }
-            return (path);
+            //return (path);
             if (tmp == NULL)
             {
                 tmp = las;
@@ -179,7 +186,11 @@ t_lst    *search_path(t_lst  *res, char *s, char *e)
                     {
                 printf("HERE\n");
                         cut = ft_strsplit(tmp->data, '-');
-                        if (!ft_strcmp(cut[1], ft_strreturn(tmp->data, st[0])))
+                    if (isadded(path, cut[1]) == 1 && isadded(path, cut[0]) == 1)
+                    {
+                    return (path);
+                    } 
+                        if (!ft_strcmp(cut[1], ft_strreturn(tmp->data, st[0])) )
                         {
                              cut = ft_strsplit(tmp->data, '-');
                             create_path(&path, cut[0]);
@@ -193,18 +204,50 @@ t_lst    *search_path(t_lst  *res, char *s, char *e)
                         if (!ft_strcmp(pos(path, ft_lstlen(path)), en[0]))
                             return(path);
                     }
-                    
+                printf("\n\n num = %d\n\n\n" , isadded(path, st[0]));
             if (!ft_strcmp(pos(path, ft_lstlen(path)), en[0]))
                 break;      
                 tmp = tmp->left;
                 }
             }
-           char **posi;
-            posi = ft_strsplit(pos(res, ft_lstlen(res)), '-');
+           //char **posi;
+           printf("---->>>%s\n", pos(res, ft_lstlen(res)));
+           printf("---->>>%s\n", st[0]);
+           if (i == 1)
+           {
+               
+           }
+           i++;
+
+            /* posi = ft_strsplit(pos(res, ft_lstlen(res)), '-');
             if (!ft_strcmp(posi[1], en[0]) || !ft_strcmp(posi[0], en[0]))
-                break;
-            break;
+                break; */
+           // break;
         }
         trav(path);
     return (path);
 }
+/* ##start
+1 23 3
+2 16 7
+#comment
+3 16 3
+4 16 5
+5 9 3
+6 1 5
+7 4 8
+##end 
+0 9 5
+0-4
+0-6
+1-3
+4-3
+5-2
+3-5
+#another comment
+4-2
+2-1
+7-6
+7-2
+7-4
+6-5 */
