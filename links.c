@@ -12,6 +12,7 @@
 
 #include "lem_in.h"
 t_lst *las = NULL;
+t_lst *fir = NULL;
 
 void    create_links(t_lst **p, char *da)
 {
@@ -31,6 +32,7 @@ void    create_links(t_lst **p, char *da)
             t = t->right;
         t->right = temp;
         las = temp;
+        fir = temp;
         temp->left = t;   
     }
 }
@@ -146,7 +148,7 @@ t_lst    *search_path(t_lst  *res, char *s, char *e)
         tmp = res;
         while (1)
         {
-        
+        tmp = res;
             while (tmp)
             {
                 if (ft_strcmp(st[0],ft_strreturn(tmp->data, st[0])) == 0  /* || st[0] == firstsignal[0] */)
@@ -154,17 +156,21 @@ t_lst    *search_path(t_lst  *res, char *s, char *e)
                     cut = ft_strsplit(tmp->data, '-');
                 if (isadded(path, cut[1]) == 1 && isadded(path, cut[0]) == 1)
                 {
-                    ft_putstr("heeeeeellllllooooo");
+                    //ft_putstr("heeeeeellllllooooo");
                     //return (path);
-                    break;
+                    tmp->data = "";
+                    //tmp = tmp->right;
+                    cut[0] = NULL;
+                    cut[1] = NULL;
+                    //break;
                 }
-                    if (!ft_strcmp(cut[1], ft_strreturn(tmp->data, st[0])) /* && isadded(path, st[0]) == 0 */)
+                    if (!ft_strcmp(cut[1], ft_strreturn(tmp->data, st[0])) && cut[0] && cut[1]/* && isadded(path, st[0]) == 0 */)
                     {
                          cut = ft_strsplit(tmp->data, '-');
                         create_path(&path, cut[0]);
                         st[0] = cut[0];
                     }
-                    else /* if (isadded(path, st[0]) == 0) */
+                    else /* if (isadded(path, st[0]) == 0) */if (cut[0] && cut[1])
                     {
                        create_path(&path, cut[1]);
                         st[0] = cut[1];
@@ -176,9 +182,11 @@ t_lst    *search_path(t_lst  *res, char *s, char *e)
                 tmp = tmp->right;
             }
             //return (path);
-            if (tmp == NULL)
+             if (tmp == NULL)
             {
                 tmp = las;
+               //trav(tmp);
+               //return(path);
                 while (tmp)
                 {
                     printf("temp->left = %s\n", tmp->data);
@@ -188,35 +196,49 @@ t_lst    *search_path(t_lst  *res, char *s, char *e)
                         cut = ft_strsplit(tmp->data, '-');
                     if (isadded(path, cut[1]) == 1 && isadded(path, cut[0]) == 1)
                     {
-                    return (path);
+                    tmp->data = "";
+                    tmp = tmp->left;
+                    cut[0] = NULL;
+                    cut[1] = NULL;
+                    //break;
+                    //return (path);
                     } 
-                        if (!ft_strcmp(cut[1], ft_strreturn(tmp->data, st[0])) )
+                        if (!ft_strcmp(cut[1], ft_strreturn(tmp->data, st[0])) && cut[0] && cut[1])
                         {
                              cut = ft_strsplit(tmp->data, '-');
                             create_path(&path, cut[0]);
                             st[0] = cut[0];
                         }
-                        else
+                        else if (cut[0] && cut[1])
                         { 
                             create_path(&path, cut[1]);
                             st[0] = cut[1];
                         }
                         if (!ft_strcmp(pos(path, ft_lstlen(path)), en[0]))
                             return(path);
-                    }
+                    } 
                 printf("\n\n num = %d\n\n\n" , isadded(path, st[0]));
             if (!ft_strcmp(pos(path, ft_lstlen(path)), en[0]))
                 break;      
                 tmp = tmp->left;
                 }
             }
+            if (i == 1)
+           {
+              //printf(">>>>>>>>>>>>>>%s\n",tmp->data);
+               //tmp->data = "--";
+               //tmp = tmp->left;
+               //printf(">>>>>>>>>>>>>>%s\n",tmp->data);
+               //tmp = tmp->right;
+               //printf(">>>>>>>>>>>>>>%s\n",tmp->data);
+               //trav(tmp);
+               //path->left->right = NULL;
+               return (path);
+           }
            //char **posi;
            printf("---->>>%s\n", pos(res, ft_lstlen(res)));
            printf("---->>>%s\n", st[0]);
-           if (i == 1)
-           {
-               
-           }
+           
            i++;
 
             /* posi = ft_strsplit(pos(res, ft_lstlen(res)), '-');
