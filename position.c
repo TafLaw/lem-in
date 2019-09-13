@@ -32,7 +32,7 @@ int			isadded(t_lst *path, char *c)
 {
 	t_lst *tmp;
 	tmp = path;
-	trav(tmp);
+	//trav(tmp);
 	while(tmp && ft_lstlen(path) != 1)
 	{
 		if(ft_strcmp(tmp->data, c) == 0){

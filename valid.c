@@ -86,6 +86,8 @@ int     def_start_end(t_in **store, char **start, char **end)
                 if (word_c(tmp->data, ' ') == 3)
                 {
                     *end = ft_strdup(tmp->data);
+        ft_putendl("hello");
+        ft_putendl(*end);
                     break ;
                 }
                 else
@@ -187,6 +189,7 @@ int     main(int ac, char **av)
                 }
             }
         }
+        printf("%s\n\n\n", end);
         printf("\033[0;35m\nStart : %s\nEnd : %s\n\n\033[0m", start, end);
         path = search_path(res, start, end);
         trav(path);
