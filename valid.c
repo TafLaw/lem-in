@@ -37,6 +37,8 @@ void    valid_rooms(t_in **p, char *s)
     t_in *t;
     char **in;
 
+    if (s[0] == '#')
+        return;
     in = ft_strsplit(s, ' ');
     temp = (t_in *)malloc(sizeof(t_in));
     temp->data = ft_strdup(in[0]);
