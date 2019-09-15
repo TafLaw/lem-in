@@ -86,8 +86,8 @@ int     def_start_end(t_in **store, char **start, char **end)
                 if (word_c(tmp->data, ' ') == 3)
                 {
                     *end = ft_strdup(tmp->data);
-        ft_putendl("hello");
-        ft_putendl(*end);
+        //ft_putendl("hello");
+        //ft_putendl(*end);
                     break ;
                 }
                 else

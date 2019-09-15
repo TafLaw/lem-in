@@ -1,0 +1,1 @@
+gcc -Wall -Werror -Wextra check_redu.c display.c ft_lstlen.c ft_strreturn.c links.c position.c valid.c libft/libft.a

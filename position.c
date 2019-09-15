@@ -47,3 +47,25 @@ int			isadded(t_lst *path, char *c)
 		return (0);
 	return (0);
 }
+
+void        delete_node(t_lst **a, int l)
+{
+   int        i;
+   t_lst    *tmp;
+   t_lst    *prev;
+   i = 0;
+   prev = NULL;
+   if (*a == NULL)
+       return ;
+   tmp = *a;
+   while (i < l - 1)
+   {
+       create_path(&prev, tmp->data);
+       tmp = tmp->right;
+       i++;
+   }
+   tmp->right = NULL;
+   tmp->left = NULL;
+   *a = prev;
+   free(tmp);
+}

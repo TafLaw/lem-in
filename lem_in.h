@@ -30,6 +30,8 @@ typedef struct      s_lem
     struct s_lem   *next;
 }                   t_in;
 
+void    create_path(t_lst **p, char *da);
+void        delete_node(t_lst **a, int l);
 int			isadded(t_lst *path, char *c);
 char            *ft_strreturn(const char *hay, const char *needle);
 char		    *pos(t_lst *a, int loc);
