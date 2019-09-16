@@ -20,7 +20,7 @@ int					duplicate2(t_lst *stack, char *s)
 {
 	int		up;
 
-	up = 0; 
+	up = 0;
 	while (stack)
 	{
         if (!ft_strcmp(stack->data, s))
