@@ -183,7 +183,7 @@ t_lst    *search_path(t_lst  *res, char *s, char *e)
     t_lst *tmp;
     t_lst *path;
     t_lst *addr;
-    int i = 0;
+    //int i = 0;
 
    path = NULL;
     st = ft_strsplit(s, ' ');
@@ -192,7 +192,7 @@ t_lst    *search_path(t_lst  *res, char *s, char *e)
             create_path(&path, st[0]);
         tmp = res;
         while (1)
-        {  
+        {
             while (tmp)
             {
                 if (ft_strcmp(st[0],ft_strreturn(tmp->data, st[0])) == 0)
@@ -231,7 +231,7 @@ t_lst    *search_path(t_lst  *res, char *s, char *e)
                         return (path);}
                 }
                 tmp = tmp->right;
-                if (tmp == NULL && ft_strcmp(pos(path, ft_lstlen(path)), en[0]) && i++ < 2)//the new start should match one of the next link rooms
+                if (tmp == NULL && ft_strcmp(pos(path, ft_lstlen(path)), en[0]))//the new start should match one of the next link rooms
                 {
                     if (addr->right == NULL)
                         break;
