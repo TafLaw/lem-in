@@ -1,5 +1,4 @@
 #include "lem_in.h"
-//for check
 //(create tmp variable to store and end, check input when passed);
 int					duplicate(t_in *stack, char *s)
 {
@@ -21,7 +20,7 @@ int					duplicate2(t_lst *stack, char *s)
 {
 	int		up;
 
-	up = 0; 
+	up = 0;
 	while (stack)
 	{
         if (!ft_strcmp(stack->data, s))
