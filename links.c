@@ -198,6 +198,7 @@ t_lst    *search_path(t_lst  *res, char *s, char *e)
                     printf("\033[0;36mSTART = %s\033[0m\n", st[0]);
                 if (ft_strcmp(st[0],ft_strreturn(tmp->data, st[0])) == 0)
                 {
+                    trav(tmp);
                     cut = ft_strsplit(tmp->data, '-');
                     if (!ft_strcmp(cut[1], ft_strreturn(tmp->data, st[0])))
                     {
@@ -240,7 +241,7 @@ t_lst    *search_path(t_lst  *res, char *s, char *e)
                 else
                 {
                     printf("\n__________________________________________\nNO true condition found\n\n");
-                    trav(addr);
+                    //trav(addr);
                     printf("\033[0;31mneedle = %s\033[0m\n", st[0]);
                     printf("\033[0;32mhay = %s\033[0m\n_________________________________\n", tmp->data);
                 } 
