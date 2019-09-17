@@ -174,7 +174,8 @@ int     was_visited(t_lst *v, char *r)
 }
 t_lst    *search_path(t_lst  *res, char *s, char *e)
 {
-    //char **cut2 = NULL;
+    char **cut2 = NULL;
+    char **cut3 = NULL;
                // char *prev = NULL;
     //t_lst *visited = NULL;
     char **st;
@@ -183,11 +184,13 @@ t_lst    *search_path(t_lst  *res, char *s, char *e)
     t_lst *tmp;
     t_lst *path;
     t_lst *addr;
-    int j = 0, i = 0;
 
    path = NULL;
     st = ft_strsplit(s, ' ');
     en = ft_strsplit(e, ' ');
+    en[1] = ft_strdup(st[0]);
+    cut2 = ft_strsplit(res->data, '-');
+    cut3 = ft_strsplit(pos(res, ft_lstlen(res)), '-');
         if (path == NULL)
             create_path(&path, st[0]);
         tmp = res;
@@ -195,7 +198,6 @@ t_lst    *search_path(t_lst  *res, char *s, char *e)
         {
             while (tmp)
             {
-                    printf("\033[0;36mSTART = %s\033[0m\n", st[0]);
                 if (ft_strcmp(st[0],ft_strreturn(tmp->data, st[0])) == 0)
                 {
                     trav(tmp);
@@ -213,9 +215,6 @@ t_lst    *search_path(t_lst  *res, char *s, char *e)
                                 delete_node(&path, ft_lstlen(path));}
                         st[0] = cut[0];
                         addr = addr_pos(tmp, loc(tmp, st[0]));
-                        printf("\033[0;33m\n");
-                        trav(tmp);
-                        printf("\033[0m\n");
                     }
                     else
                     {
@@ -230,36 +229,23 @@ t_lst    *search_path(t_lst  *res, char *s, char *e)
                                 delete_node(&path, ft_lstlen(path));}
                         st[0] = cut[1];
                         addr = addr_pos(tmp, loc(tmp, st[0]));
-                         printf("\033[0;34m\n");
-                        trav(tmp);
-                        printf("\033[0m\n");
                     }
                     trav(path);
                     if (ft_strcmp(pos(path, ft_lstlen(path)), en[0]) ==0){
                         return (path);}
                 }
-                else
-                {
-                    printf("\n__________________________________________\nNO true condition found\n\n");
-                    //trav(addr);
-                    printf("\033[0;31mneedle = %s\033[0m\n", st[0]);
-                    printf("\033[0;32mhay = %s\033[0m\n_________________________________\n", tmp->data);
-                } 
                 tmp = tmp->right;
-                trav(tmp);
                 if (tmp == NULL && ft_strcmp(pos(path, ft_lstlen(path)), en[0]))//the new start should match one of the next link rooms
                 {
-                    printf("here\n");
+                    if ((loc(res, en[1]) - 1) != ft_lstlen(res) && (loc(res, en[1]) - 1) != 1 && !path->right)
+                        break;
                     if (addr->right == NULL)
                         break;
                     tmp = addr->right;
                     delete_node(&path, loc(path, pos(path, ft_lstlen(path)))-1);
                     st[0] = pos(path, ft_lstlen(path));
-                    j = i;
                 }
-                trav(path);
             }
-            //return (path);
             if (tmp == NULL)
             {
                 tmp = las;
@@ -297,16 +283,19 @@ t_lst    *search_path(t_lst  *res, char *s, char *e)
                                 
                                 addr = addr_pos(tmp, loc(tmp, st[0]));
                             }
-                            trav(tmp);
-                            trav(path);
-                            if (ft_strcmp(pos(path, ft_lstlen(path)), en[0]) ==0){
-                                return (path);}
+                            if (!ft_strcmp(pos(path, ft_lstlen(path)), en[0]))
+                                return (path);
                         }
                         tmp = tmp->left;
                         if (tmp == NULL && ft_strcmp(pos(path, ft_lstlen(path)), en[0]))//the new start should match one of the next link rooms
                         {
-                            tmp = addr->right;
-                            delete_node(&path, loc(path, pos(path, ft_lstlen(path)))-1);
+                            if ((loc(res, en[1]) - 1) != ft_lstlen(res) && (loc(res, en[1]) - 1) != 1)
+                                tmp = las;
+                            else
+                            {
+                                tmp = addr->right;
+                                delete_node(&path, loc(path, pos(path, ft_lstlen(path)))-1);
+                            }
                             st[0] = pos(path, ft_lstlen(path));
                         }
             }}}
