@@ -29,6 +29,15 @@ typedef struct      s_lem
     char           *data;
     struct s_lem   *next;
 }                   t_in;
+typedef struct		s_path
+{
+	char **st;
+    char **en;
+    char **cut;
+    t_lst *tmp;
+    t_lst *path;
+    t_lst *addr;
+}					t_path;
 void            create_path(t_lst **p, char *da);
 char            *ft_strreturn(const char *hay, const char *needle);
 char		    *pos(t_lst *a, int loc);
@@ -42,9 +51,11 @@ void	        trav(t_lst *top);
 void	        trav2(t_in *top);
 int             ft_lstlen(t_lst *r);
 void	        end_to_end(t_lst **res);
-t_lst	*end_to_bottom(t_lst **res, int loc);
-int		loc(t_lst *top, char *end);
-t_lst		*addr_pos(t_lst *a, int loc);
-void		delete_node(t_lst **a, int l);
+t_lst	        *end_to_bottom(t_lst **res, int loc);
+int		        loc(t_lst *top, char *end);
+t_lst		    *addr_pos(t_lst *a, int loc);
+void		    delete_node(t_lst **a, int l);
+t_lst           *top_bot(char *st, char *en, t_lst **path, t_lst *res);
+int             does_link(t_lst *res, char *s, char *end);
 
 #endif
