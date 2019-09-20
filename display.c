@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   display.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: txaba <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/17 14:07:54 by txaba             #+#    #+#             */
+/*   Updated: 2019/09/17 14:11:52 by txaba            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lem_in.h"
 
-void	trav(t_lst *top)
+void		trav(t_lst *top)
 {
 	t_lst *temp;
 
@@ -20,7 +32,7 @@ void	trav(t_lst *top)
 	}
 }
 
-void	trav2(t_in *top)
+void		trav2(t_in *top)
 {
 	t_in *temp;
 
@@ -29,7 +41,6 @@ void	trav2(t_in *top)
 	else
 	{
 		temp = top;
-		
 		while (temp != NULL)
 		{
 			ft_putstr(temp->data);

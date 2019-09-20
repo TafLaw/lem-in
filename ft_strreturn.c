@@ -1,9 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strreturn.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: txaba <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/17 14:14:15 by txaba             #+#    #+#             */
+/*   Updated: 2019/09/17 14:14:18 by txaba            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lem_in.h"
 
 char	*ft_strreturn(const char *hay, const char *needle)
 {
-	//unsigned int	i;
-	//unsigned int	j;
 	char **sp;
 
 	sp = ft_strsplit((char*)hay, '-');
@@ -15,19 +25,5 @@ char	*ft_strreturn(const char *hay, const char *needle)
 	{
 		return ((char *)needle);
 	}
-
-//	i = 0;
-	/*
-	while (hay[i] != '\0')
-	{
-		j = 0;
-		while (hay[i + j] == needle[j])
-		{
-			j++;
-			if (needle[j] == '\0')
-				return ((char *)needle);
-		}
-		i++;
-	}*/
 	return ((char *)hay);
 }
