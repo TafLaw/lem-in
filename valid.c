@@ -134,11 +134,12 @@ int     check_input(char **str, int ac)
 
 int     main(int ac, char **av)
 {
+    t_lst   *temp;
     t_lst   *path;
     t_in    *store;
     t_lst    *res;
     t_in    *rooms;
-    int     i = 0;
+    int     i = 0, ants = 0;
     char    *in;
     char *start;
     char *end;
@@ -150,7 +151,7 @@ int     main(int ac, char **av)
     {
         if (get_next_line(0, &in) == 1)
         {
-			ft_putendl(in);
+			//ft_putendl(in);
             while (in[i])
             {
                 if (ft_isdigit(in[i]) || in[i] == '#')
@@ -168,11 +169,12 @@ int     main(int ac, char **av)
                 else
                     i++; */
             }
+            ants = ft_atoi(in);
         }
         ft_strclr(in);
         while ((get_next_line(0, &in) == 1))
         {
-			ft_putendl(in);
+			//ft_putendl(in);
             if (word_c(in, ' ') == 3 || (in[0] == '#'))
             {
                 if (!check_input(&in, word_c(in, ' ')))
@@ -193,14 +195,35 @@ int     main(int ac, char **av)
                 		else
                 		{
                     		ft_putendl("Invalid room");
-                    		break;
+                    		return (0);
                 		}
             		}
         	}
-        	printf("\033[0;35m\nStart : %s\nEnd : %s\n\n\033[0m", start, end);
+        	//printf("\033[0;35m\nStart : %s\nEnd : %s\n\n\033[0m", start, end);
         	path = search_path(res, start, end);
-        	trav(path);
-        	free(path);
+            i = 1;
+            temp = path->right;
+            //ft_putchar('\n');
+            while (temp && i < ants + 1)
+            {
+                ft_putstr("\nL");
+                ft_putnbr(i);
+                ft_putstr("-");
+                ft_putstr(temp->data);
+                ft_putstr(" ");
+                if (!temp->right)
+                {
+                    temp = path->right;
+                    //ft_putchar('\n');
+                    i++;
+                }
+                else
+                    temp = temp->right;
+            }
+
+            sleep(40);
+        	//trav(path);
+        	delete_n(&path);
     		free(in);
 	}
     return (0);

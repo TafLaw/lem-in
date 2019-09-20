@@ -31,6 +31,7 @@ void    create_links(t_lst **p, char *da)
         t->right = temp;
         temp->left = t;   
     }
+    free(da);
 }
 
 void    create_path(t_lst **p, char *da)
@@ -88,6 +89,10 @@ int      does_link(t_lst *res, char *s, char *end)//take the start and check if 
             return (1);
         res = res->right;
     }
+    free(st);
+    free(r);
+    free(st2);
+    free(res_st);
     return (0);
 }
 
