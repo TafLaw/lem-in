@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
-t_lst *las = NULL;
+//t_lst *las = NULL;
 
 void    create_links(t_lst **p, char *da)
 {
@@ -30,7 +30,7 @@ void    create_links(t_lst **p, char *da)
         while (t->right != NULL)
             t = t->right;
         t->right = temp;
-        las = temp;
+        //las = temp;
         temp->left = t;   
     }
 }
@@ -96,122 +96,17 @@ t_lst    *search_path(t_lst  *res, char *s, char *e)
 {
     char **st;
     char **en;
-    char **cut;
     t_lst *tmp;
     t_lst *path;
-    t_lst *addr;
 
    path = NULL;
    st = ft_strsplit(s, ' ');
    en = ft_strsplit(e, ' ');
-   en[1] = ft_strdup(st[0]);
    if (path == NULL)
-        create_path(&path, st[0]);
-   tmp = res;
-        while (1)
-        {
-            /* while (tmp)
-            {
-                if (ft_strcmp(st[0],ft_strreturn(tmp->data, st[0])) == 0)
-                {
-                    cut = ft_strsplit(tmp->data, '-');
-                    if (!ft_strcmp(cut[1], ft_strreturn(tmp->data, st[0])))
-                    {
-                        cut = ft_strsplit(tmp->data, '-');
-                        if (does_link(res, st[0], en[0])){
-                            create_path(&path, en[0]);
-                            if (duplicate2(path, cut[0]))
-                                delete_node(&path, ft_lstlen(path));}
-                        else{
-                            create_path(&path, cut[0]);
-                            if (duplicate2(path, cut[0]))
-                                delete_node(&path, ft_lstlen(path));}
-                        st[0] = cut[0];
-                        addr = addr_pos(tmp, loc(tmp, st[0]));
-                    }
-                    else
-                    {
-                        if (does_link(res, st[0], en[0])){
-                            create_path(&path, en[0]);
-                            if (duplicate2(path, cut[0]))
-                                delete_node(&path, ft_lstlen(path));}
-                        else
-                        {
-                            create_path(&path, cut[1]);
-                            if (duplicate2(path, cut[0]))
-                                delete_node(&path, ft_lstlen(path));}
-                        st[0] = cut[1];
-                        addr = addr_pos(tmp, loc(tmp, st[0]));
-                    }
-                    if (ft_strcmp(pos(path, ft_lstlen(path)), en[0]) ==0){
-                        return (path);}
-                }
-                tmp = tmp->right;
-                if (tmp == NULL && ft_strcmp(pos(path, ft_lstlen(path)), en[0]))//the new start should match one of the next link rooms
-                {
-                    if ((loc(res, en[1]) - 1) != ft_lstlen(res) && (loc(res, en[1]) - 1) != 1 && !path->right)
-                        break;
-                    if (addr->right == NULL)
-                        break;
-                    tmp = addr->right;
-                    delete_node(&path, loc(path, pos(path, ft_lstlen(path)))-1);
-                    st[0] = pos(path, ft_lstlen(path));
-                }
-            } */
-            tmp = top_bot(st[0], en[0], &path, res);
-            //trav(tmp);
-            if (tmp == NULL)
-            {
-                tmp = las;
-                while (tmp)
-                    {
-                        if (ft_strcmp(st[0],ft_strreturn(tmp->data, st[0])) == 0)
-                        {
-                            cut = ft_strsplit(tmp->data, '-');
-                            if (!ft_strcmp(cut[1], ft_strreturn(tmp->data, st[0])))
-                            {
-                                cut = ft_strsplit(tmp->data, '-');
-                                if (does_link(res, st[0], en[0])){
-                                    create_path(&path, en[0]);
-                                    if (duplicate2(path, cut[0]))
-                                        delete_node(&path, ft_lstlen(path));}
-                                else{
-                                    create_path(&path, cut[0]);
-                                    if (duplicate2(path, cut[0]))
-                                        delete_node(&path, ft_lstlen(path));}
-                                st[0] = cut[0];
-                                addr = addr_pos(tmp, loc(tmp, st[0]));
-                            }
-                            else
-                            {
-                                if (does_link(res, st[0], en[0])){
-                                    create_path(&path, en[0]);
-                                    if (duplicate2(path, cut[0]))
-                                        delete_node(&path, ft_lstlen(path));}
-                                else
-                                {
-                                    create_path(&path, cut[1]);
-                                    if (duplicate2(path, cut[0]))
-                                        delete_node(&path, ft_lstlen(path));}
-                                st[0] = cut[1];
-                                
-                                addr = addr_pos(tmp, loc(tmp, st[0]));
-                            }
-                            if (!ft_strcmp(pos(path, ft_lstlen(path)), en[0]))
-                                return (path);
-                        }
-                        tmp = tmp->left;
-                        if (tmp == NULL && ft_strcmp(pos(path, ft_lstlen(path)), en[0]))//the new start should match one of the next link rooms
-                        {
-                            if ((loc(res, en[1]) - 1) != ft_lstlen(res) && (loc(res, en[1]) - 1) != 1)
-                                tmp = las;
-                            else
-                            {
-                                tmp = addr->right;
-                                delete_node(&path, loc(path, pos(path, ft_lstlen(path)))-1);
-                            }
-                            st[0] = pos(path, ft_lstlen(path));
-                        }
-            }}}
+    create_path(&path, st[0]);
+        tmp = top_bot(st[0], en[0], &path, res);
+    if (tmp == NULL)
+        bot_top(st[0], en[0], &path, res);
+        
     return (path);
 }
