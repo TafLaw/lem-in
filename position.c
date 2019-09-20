@@ -81,16 +81,12 @@ t_lst	*end_to_bottom(t_lst **res, int loc)
 	int    i= 0;
 	t_lst *tmp;
 	t_lst *p;
-	//t_lst *l_addr;
 
-	//l_addr = addr_pos(*res, ft_lstlen(*res));
 	tmp = addr_pos(*res, loc);
 	p = *res;
 	while (i++ < ft_lstlen(*res))
 		p = p->right;
 	tmp->right = NULL;
-	//p->left = tmp;
-	printf("got here\n");
 	tmp->left = p;
 	return (tmp);
 }

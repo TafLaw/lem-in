@@ -6,7 +6,7 @@
 /*   By: tmuzeren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 09:51:10 by tmuzeren          #+#    #+#             */
-/*   Updated: 2019/09/03 09:51:12 by tmuzeren         ###   ########.fr       */
+/*   Updated: 2019/09/18 15:37:41 by mnzolo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,46 +59,46 @@ int     def_start_end(t_in **store, char **start, char **end)
     t_in *tmp;
 
     tmp = *store;
-        while (tmp != NULL)
+    while (tmp != NULL)
+    {
+        if (ft_strcmp("start", ft_strstr(tmp->data, "start")) == 0)
         {
-            if (ft_strcmp("start", ft_strstr(tmp->data, "start")) == 0)
+            tmp = tmp->next;
+            if (word_c(tmp->data, ' ') == 3)
             {
-                tmp = tmp->next;
-                if (word_c(tmp->data, ' ') == 3)
-                {
-                    *start = ft_strdup(tmp->data);
-                    break ;
-                }
-                else 
-                {
-                    ft_putendl("Invalid Start");
-                    return (0);
-                }
+                *start = ft_strdup(tmp->data);
+                break;
+            }
+            else 
+            {
+                ft_putendl("Invalid Start");
+                return (0);
+            }
+        }
+        else
+            tmp = tmp->next;
+    }
+    tmp = *store;
+    while (tmp != NULL)
+    {
+        if (ft_strcmp("end", ft_strstr(tmp->data, "end")) == 0)
+        {
+          //  if (tmp->next)
+            tmp = tmp->next;
+            if (word_c(tmp->data, ' ') == 3)
+            {
+                *end = ft_strdup(tmp->data);
+                break ;
             }
             else
-                tmp = tmp->next;
-        }
-        tmp = *store;
-        while (tmp != NULL)
-        {
-            if (ft_strcmp("end", ft_strstr(tmp->data, "end")) == 0)
             {
-                if (tmp->next)
-                tmp = tmp->next;
-                if (word_c(tmp->data, ' ') == 3)
-                {
-                    *end = ft_strdup(tmp->data);
-                    break ;
-                }
-                else
-                {
-                    ft_putendl("Invalid end");
-                    return (0);
-                }
+                ft_putendl("Invalid end");
+                return (0);
             }
-            else
-                tmp = tmp->next;
         }
+        else
+            tmp = tmp->next;
+    }
     return (1);
 }
 
@@ -109,7 +109,6 @@ int     check_input(char **str, int ac)
 
     i = 0;
     j = 0;
-    
     if((*str[i] >= 9 && *str[i] <= 13) || (*str[i] == 32))
     {
         ft_putendl("Error");
@@ -143,28 +142,37 @@ int     main(int ac, char **av)
     char    *in;
     char *start;
     char *end;
-    
+   
     store = NULL;
     path = NULL;
-    if (ac == 1 && av[1] == NULL)
+	av = 0;
+    if (ac == 1)
     {
         if (get_next_line(0, &in) == 1)
         {
+			ft_putendl(in);
             while (in[i])
             {
-                if (!ft_isdigit(in[i]))
+                if (ft_isdigit(in[i]) || in[i] == '#')
+                    i++;
+                else
                 {
                     ft_putendl("Error");
+                    return (0);                    
+                }
+                /* if (!ft_isdigit(in[i]))
+                {
                     free(in);
                     return (0);
                 }
                 else
-                    i++;
+                    i++; */
             }
         }
         ft_strclr(in);
         while ((get_next_line(0, &in) == 1))
         {
+			ft_putendl(in);
             if (word_c(in, ' ') == 3 || (in[0] == '#'))
             {
                 if (!check_input(&in, word_c(in, ' ')))
@@ -174,26 +182,26 @@ int     main(int ac, char **av)
                 }
                 valid_rooms(&rooms, in);
                 single_paths(&store, in);
-            }
+           }
             else if (def_start_end(&store, &start, &end) == 0)
-                return (0);
-            else
-            {
-                if (check_rooms(rooms, in) == 1)
+               		 return (0);
+            		else
+            		{
+						if (check_rooms(rooms, in) == 1)
                    //single_paths(&res, in);
-                   create_links(&res, in);
-                else
-                {
-                    ft_putendl("Invalid room");
-                    break;
-                }
-            }
-        }
-        printf("\033[0;35m\nStart : %s\nEnd : %s\n\n\033[0m", start, end);
-        path = search_path(res, start, end);
-        trav(path);
-        free(path);
-    free(in);
-    }
+                   		create_links(&res, in);
+                		else
+                		{
+                    		ft_putendl("Invalid room");
+                    		break;
+                		}
+            		}
+        	}
+        	printf("\033[0;35m\nStart : %s\nEnd : %s\n\n\033[0m", start, end);
+        	path = search_path(res, start, end);
+        	trav(path);
+        	free(path);
+    		free(in);
+	}
     return (0);
 }
