@@ -195,5 +195,6 @@ int     main(int ac, char **av)
         free(path);
     free(in);
     }
+    sleep(40);
     return (0);
 }

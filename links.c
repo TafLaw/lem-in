@@ -160,7 +160,6 @@ t_lst    *search_path(t_lst  *res, char *s, char *e)
             } */
             tmp = top_bot(st[0], en[0], &path, res);
             //trav(tmp);
-            return (path);
             if (tmp == NULL)
             {
                 tmp = las;
