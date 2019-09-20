@@ -57,5 +57,6 @@ t_lst		    *addr_pos(t_lst *a, int loc);
 void		    delete_node(t_lst **a, int l);
 t_lst           *top_bot(char *st, char *en, t_lst **path, t_lst *res);
 int             does_link(t_lst *res, char *s, char *end);
+t_lst    *bot_top (char *st, char *en, t_lst **path, t_lst *res);
 
 #endif

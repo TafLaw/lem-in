@@ -135,6 +135,7 @@ int     check_input(char **str, int ac)
 
 int     main(int ac, char **av)
 {
+   
     t_lst   *path;
     t_in    *store;
     t_lst    *res;
@@ -180,7 +181,6 @@ int     main(int ac, char **av)
             else
             {
                 if (check_rooms(rooms, in) == 1)
-                   //single_paths(&res, in);
                    create_links(&res, in);
                 else
                 {
@@ -195,6 +195,6 @@ int     main(int ac, char **av)
         free(path);
     free(in);
     }
-    sleep(40);
+    //sleep(40);
     return (0);
 }
